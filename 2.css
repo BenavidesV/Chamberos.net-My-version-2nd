@@ -14,7 +14,7 @@ div.big-header{
 section{
 	background-color: transparent;
 	text-align: center;
-	margin: 0 0 30% 0;
+	margin: 0 0 1rem 0;
 	
 }
 .vcenter {
@@ -27,4 +27,13 @@ div ul li {
 	border: 2px dashed white;
 	text-align: center;
 	text-decoration: none;	
+}
+form.login{
+	text-align: center;
+	width: 400px;
+	height: 400px;
+	margin: 0 33.33333% 0 33.33333%;
+	border: 2px solid orangered;
+	background-color: lightsalmon;
+	color: white;
 }
