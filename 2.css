@@ -1,0 +1,30 @@
+body {
+	background-color: lightgray;
+}
+#onlyLogo{
+	height: 5rem;
+	margin-right: 1rem;
+}
+div.big-header{
+	margin: 10% 25%;
+}
+#colorful {
+	background-color: #FF6600;
+}
+section{
+	background-color: transparent;
+	text-align: center;
+	margin: 0 0 30% 0;
+	
+}
+.vcenter {
+    vertical-align: middle;
+    float: none;
+}
+div ul li {
+    display: inline-block;
+	margin: 1em;
+	border: 2px dashed white;
+	text-align: center;
+	text-decoration: none;	
+}
