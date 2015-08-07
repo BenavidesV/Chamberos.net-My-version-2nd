@@ -1,6 +1,18 @@
 body {
-	background-color: lightgray;
+	background-color: #ffefe6;
 }
+div.error_msg {
+			display: none;
+			color: white;
+			background-color: red;
+			border: 1px solid black;
+			padding: 2px;
+		}
+div.new_msg {
+			display: none;
+			border: 1px solid black;
+			padding: 4px;
+		}
 #onlyLogo{
 	height: 5rem;
 	margin-right: 1rem;
@@ -28,12 +40,9 @@ div ul li {
 	text-align: center;
 	text-decoration: none;	
 }
-form.login{
-	text-align: center;
-	width: 400px;
-	height: 400px;
-	margin: 0 33.33333% 0 33.33333%;
+.login{
 	border: 2px solid orangered;
 	background-color: lightsalmon;
 	color: white;
+	width: 60%;
 }

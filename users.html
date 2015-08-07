@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Chamberos.net-Dashboard</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="agenda2.js"></script>
+		<link rel="stylesheet" href="2.css">
+	</head>
+	<!-- The common header for all pages -->
+	<header>
+		<nav role="navigation" class="navbar navbar-default" id="colorful">
+			<div class="navbar-header col-xs-12 col-sm-4">
+				<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+					<span class="sr-only">hola</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="dashboard.html" class="navbar-brand"><img src="chamberos-logo-mobile.png" id="onlyLogo"></a>
+			</div>
+			<div id="navbarCollapse" class="collapse navbar-collapse col-xs-12 col-sm-4">
+				<ul class="nav navbar-nav">
+					<li class="active">
+						<a title="users" href="users.html">Users</a>
+					</li>
+					<li>
+						<a href="clients.html">Clients</a>
+					</li>
+					<li>
+						<a title="chambas" href="chambas.html">Chambas</a>
+					</li>
+					<li>
+						<a title="invoices" href="invoices.html">Invoices</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-3 ">
+				<span>Hi User</span>
+				<img src="user.png">
+				<a href="login.html"><img src="exit.png"></a>
+			</div>
+		</nav>
+	</header>
+	<body>
+		<div class="container">
+			<div class="pull-left">
+				<img src="users2.png">
+				<span>USERS</span>
+			</div>
+			<div class="btn-group col-xs-12 col-sm-4 pull-right" id="prueba">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New User
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<div>
+						<form class="form" id="usernameInfo">Username
+							<input type="text" class="form-control" id="username" placeholder="Username">Password:
+							<input type="password" class="form-control" id="password" placeholder="Password">Confirm password
+							<input type="password" class="form-control" id="retypePassword" placeholder="Confirm your password">
+						</form>
+						<input id="save" type="submit" class="btn btn-warning" value="Save"></input>
+						<input id="cancel" class="btn btn-success" value="Cancel"></input>
+					</div>
+				</ul>
+			</div>
+		</div>
+		<!--to show a change in the table-->
+		<div class="new_msg text-center" id="new_msg"></div>
+		<!--To view the clients information-->
+		<div class="panel">
+			<table id="tblUsers" class="table table-bordered table-hover table-condensed table-responsive">
+				<thead>
+					<tr class="info">
+						<th id="id-column">Username</th>
+						<th id="password-column">Password</th>
+						<th id="action-column">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--Charge the info with the users-->
+				</tbody>
+			</table>
+		</div>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	</body>
+
+</html>
