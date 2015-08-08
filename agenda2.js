@@ -1,140 +1,117 @@
 
-$(function(){
-	
-	$.mostrarListaDeContactos=function(){
-		//guardamos en una variable la cantidad de contactos y el cuerpo de la
-		//tabla en la que mostraremos la lista (agregando filas con jQuery)
-		var iTotalContactos=localStorage.length,
-		$objCuerpoTablaContactos=$('#tblUsers').find('tbody');
+$(function () {
+
+	$.showListUsers = function () {
+
+		var iTotal = localStorage.length,
+			$objUsersTable = $('#tblUsers').find('tbody');
 		
-		//vaciamos el cuerpo de la tabla
-		$objCuerpoTablaContactos.empty();
-		
-		//hay contactos almacenados?
-		if(iTotalContactos>0){
-			//recorremos la lista de contactos (los items almacenados en localStorage)
-			for(var iContacto=0; iContacto<iTotalContactos; iContacto++){
-				//guardamos en variables el telefono y nombre recuperados del localStorage
-				var strTelefono=localStorage.key(iContacto),
-				strNombre=localStorage.getItem(localStorage.key(iContacto));
+		//clean the table's body
+		$objUsersTable.empty();
+
+		if (iTotal > 0) {
+			//from the list on localstorage
+			for (var i = 0; i < iTotal; i++) {
+				//create temporal variables from localStorage
+				var user = localStorage.key(i),
+					pass = localStorage.getItem(localStorage.key(i));
 				
-				//agregamos una nueva fila con los datos del contacto
-				$objCuerpoTablaContactos.append(
+				//create a new row
+				$objUsersTable.append(
 					$('<tr>').append(
-						$('<td>',{ //fila con el nombre del contacto
-							text	: strNombre,
-							align	: 'left'
+						$('<td>', {
+							text: user,
+							align: 'left'
 						}),
-						$('<td>',{ //fila con el numero de telefono
-							text	: strTelefono,
-							align	: 'left'
+						$('<td>', {
+							text: pass,
+							align: 'left'
 						}),
-						$('<td>',{ //fila para el boton de eliminar
-							align	: 'center',
-							width	: 60
-						}).append(
-							//agregamos a la fila el boton
-							$('<input>',{
-								type	: 'button',
-								value	: 'Eliminar',
-							}).data('contactoAEliminar',strTelefono) //por medio del metodo
-							//data almacenamos en el boton el numero que debemos eliminar
-							//(esto no sera visible, es un truquillo interesante)
+						$('<td>', { //row with the option buttons
+							align: 'center',
+							width: 60
+						}).append(//agregamos a la fila el boton
+							$('<input>', {
+								type: 'button',
+								class: 'clsDelete',
+								value: 'Delete',
+							}, '<input>', {
+									type: 'button',
+									class: 'clsEdit',
+									value: 'Edit',
+								}).data('dUser', user) //save the user that could be deleted
+							)
 						)
+					);
+
+			}
+			//If there aren't users
+		} else {
+			$objUsersTable.append(
+				$('<tr>').append(
+					$('<td>', {
+						text: 'Not users registered',
+						colspan: 3,
+						align: 'center'
+					})
 					)
 				);
-			}
-		//no hay contactos almacenados
-		}else{
-			//agregamos una fila con un mensaje indicando que no hay contactos
-			$objCuerpoTablaContactos.append(
-				$('<tr>').append(
-					$('<td>',{
-						text	: 'No se han agregado contactos',
-						colspan	: 3,
-						align	: 'center'
-					})
-				)
-			);
 		}
 	};
 	
-	//funcion para limpiar los campos del formulario
-	$.limpiarCamposDelFormulario=function(){
-		//vaciamos el contenido de los campos de texto
+	//To clean the form fields
+	$.CleanFields = function () {
 		$('#username,#password,#retypePassword').val('');
-		//enfocamos el campo para digitar el nombre
 		$('#username').focus();
 	};
 	
-	//evento submit del formulario
-	$('#prueba').on('submit',function(eEvento){
-		//evitamos que el form se envie (para que no recargue la pagina)
+	//submit event on form
+	$('#prueba').on('submit', function (eEvento) {
+		//void the recharging
 		eEvento.preventDefault();
-		
-		//obtenemos una "copia" de los campos de texto
-		var $txtTelefono=$('#username'),$txtNombre=$('#password');
-		
-		//verificamos que los datos no esten vacios
-		//con $.trim() eliminamos los espacios al final y al inicio de las cadenas
-		if($.trim($txtNombre.val())!='' && $.trim($txtTelefono.val())){
-			//creamos dos variables con el nombre y telefono que vamos a guardar
-			var strNombre=$.trim($txtNombre.val()),
-			strTelefono=$.trim($txtTelefono.val());
+
+		var $tempUser = $('#username'), $tempPass = $('#password');
+
+		if ($.trim($tempUser.val()) != '' && $.trim($tempPass.val())) {
+			//temporal variables to save the information
+			var strUser = $.trim($tempUser.val()),
+				strPass = $.trim($tempPass.val());
 			
-			//preguntamos si el numero de telefono ya existe
-			if(localStorage.getItem(strTelefono)){
-				//el numero existe... desea actualizar?
-				if(confirm('El número de teléfono ya existe ¿Desea actualizarlo?')){
-					//actualizamos
-					localStorage.setItem(strTelefono,strNombre);
-					//cargamos en el cuerpo de la tabla la lista de contactos
-					$.mostrarListaDeContactos();
-					//limpiamos el formulario
-					$.limpiarCamposDelFormulario();
+			//if the username exist
+			if (localStorage.getItem(strUser)) {
+				if (confirm('This user exists. Do you want replace it?')) {
+					//update the info
+					localStorage.setItem(strUser, strPass);
+					$.showListUsers();
+					$.CleanFileds();
 				}
-			//el numero no existe
-			}else{
-				//agregamos el contacto al localStorage
-				localStorage.setItem(strTelefono,strNombre);
-				//cargamos en el cuerpo de la tabla la lista de contactos
-				$.mostrarListaDeContactos();
+			} else {
+				localStorage.setItem(strUser, strPass);
+				$.showListUsers();
 				//limpiamos el formulario
-				$.limpiarCamposDelFormulario();
+				$.CleanFields();
 			}
-		}else{	//en caso de que algun campo este vacio
-			//verificamos si el nombre esta vacio
-			if($.trim($txtNombre.val())==''){
-				//mostramos un mensaje
-				alert('Por favor, digite el nombre del contacto.');
-				//enfocamos el campo para el nombre
-				$txtNombre.val('').focus();
-			//verificamos si el telefono esta vacio
-			}else{
-				//mostramos un mensaje
-				alert('Por favor, digite el número del contacto.');
-				//enfocamos el campo para el telefono
-				$txtTelefono.val('').focus();
+		} else {
+			if ($.trim($tempUser.val()) == '') {
+				alert('Write the username. Please');
+				$tempUser.val('').focus();
+			} else {
+				alert('Please type the password');
+				$tempPass.val('').focus();
 			}
 		}
 	});
 	
-	//clic en el boton para eliminar un contacto
-	//se usa live en vez de on, porque el boton se creo en tiempo de ejecucion
-	$('.clsEliminarContacto').on('click',function(){
-		//obtenemos el contacto que se va a eliminar (recordar que esta almacenado en data)
-		var strTelefonoAEliminar=$(this).data('contactoAEliminar');
-		
-		if(confirm('¿Desea eliminar el contacto seleccionado?')){
-			//eliminamos el contacto usando la clave que esta asociada al nombre
-			//recordemos que el item se guardo usando como clave el telefono
-			localStorage.removeItem(strTelefonoAEliminar);
-			//cargamos en el cuerpo de la tabla la lista de contactos
-			$.mostrarListaDeContactos();
+	//Delete clic event
+	$('.clsDelete').on('click', function () {
+		var strDelete = $(this).data('dUser');
+
+		if (confirm('Are you sure you want delete?' + strDelete)) {
+			localStorage.removeItem(strDelete);
+			//charge the list of the users
+			$.showListUsers();
 		}
 	});
-	
-	//cuando la pagina carga mostramos la lista de contactos
-	//ojo: esto se hace al inicio...
-	$.mostrarListaDeContactos();
+
+	$.showListUsers();
 });
