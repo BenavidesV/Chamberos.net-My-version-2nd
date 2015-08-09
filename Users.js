@@ -45,12 +45,15 @@ var Users = {
     							$('<input>', {
     								type: 'button',
     								class: 'clsDelete',
+                                    onclick:'Users.Delete()',
     								value: 'Delete',
+                                    id:'Delete'
     							}), $('<input>', {
     								type: 'button',
     								class: 'clsEdit',
+                                    onclick:'Users.Edit()',
     								value: 'Edit',
-                                    id: 'addUser'
+                                    id: 'addUser' //to display the modal window
     							}).data('dUser', users.User) //save the user that could be deleted
     							)
     						)
@@ -87,27 +90,61 @@ var Users = {
             closeModal();
             Users.AllUsers();
     },
-};
-//Delete clic event
-	$('.clsDelete').on('click', function () {
-        alert('Hola');
-		var strDelete = $(this).data('dUser');
+    //This funtions creates the index to modify or delete the user
+    DeleteUsers: function (etiqueta) {
+        var deletes = $(".Delete");
+        for (var i = 0; i < deletes.length; i++)
+        {
+            if (deletes[i] === etiqueta) {
+                localStorage.setItem("Index", i);
 
-		if (confirm('Are you sure you want delete?' + strDelete)) {
-			var users = Users.tbUsrs();
-                users.splice(strDelete.username, 1);
-                localStorage.setItem("tbUsers", JSON.stringify(users));
-			//charge the list of the users
-			Users.AllUsers();
+            }
+        }
+    },
+    EditUsers: function (etiqueta) {
+        var Edits = $(".Edit");
+        for (var i = 0; i < Edits.length; i++)
+        {
+            if (Edits[i] === etiqueta) {
+                localStorage.setItem("Index", i);
+
+            }
+        }
+    },
+    Delete: function () {
+        if (confirm('Are you sure you want delete this user?')){
+        var users = Users.tbUsrs();
+        var index = parseInt(localStorage.getItem("Index"));
+        users.splice(index, 1);
+        localStorage.setItem("tbUsers", JSON.stringify(users));
+        }
+        Users.AllUsers();
+    },
+    Edit:function() {
+        var users = Users.tbUsrs();
+        var index = parseInt(localStorage.getItem("Index"));
+        users[index]=JSON.stringify({User: $("#username").val(), Password: $("#password").val()});
+        localStorage.setItem("tbUsers", JSON.stringify(users));
+    }
+};
+/*
+$('.clsDelete').on('click', function () {
+	var strDelete = $(this).data('dUser');
+	if (confirm('Are you sure you want delete'+strDelete+' ?')) {
+		var users = Users.tbUsrs();
+        users.splice(strDelete, 1);
+        localStorage.setItem("tbUsers", JSON.stringify(users));
+		//charge the list of the users
+		Users.AllUsers();
 		}
 	});
-	//Edit clic event
-	$('.clsEdit').bind('click', function () {
+//Edit clic event
+$('.clsEdit').bind('click', function () {
 		var strEdit = $(this).data('dUser');
         
 		$('#username').innerhtml = strEdit.username, $('#password').innerhtml = strEdit.password, $('#retypePassword').innerhtml = strEdit.password;
 		//Users.AllUsers();
 	});
-
+*/
 $(document).ready(function () {
     Users.AllUsers();})
