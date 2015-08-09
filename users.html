@@ -5,7 +5,8 @@
 		<title>Chamberos.net-Dashboard</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script type="text/javascript" src="agenda2.js"></script>
+		<script type="text/javascript" src="newUsers.js"></script>
+		<script type="text/javascript" src="Users.js"></script>
 		<link rel="stylesheet" href="2.css">
 	</head>
 	<!-- The common header for all pages -->
@@ -13,7 +14,7 @@
 		<nav role="navigation" class="navbar navbar-default" id="colorful">
 			<div class="navbar-header col-xs-12 col-sm-4">
 				<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-					<span class="sr-only">hola</span>
+					<span class="sr-only"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -49,21 +50,8 @@
 				<img src="users2.png">
 				<span>USERS</span>
 			</div>
-			<div class="btn-group col-xs-12 col-sm-4 pull-right" id="prueba">
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">New User
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<div>
-						<form class="form" id="usernameInfo">Username
-							<input type="text" class="form-control" id="username" placeholder="Username">Password:
-							<input type="password" class="form-control" id="password" placeholder="Password">Confirm password
-							<input type="password" class="form-control" id="retypePassword" placeholder="Confirm your password">
-						</form>
-						<input id="save" type="submit" class="btn btn-warning" value="Save"></input>
-						<input id="cancel" class="btn btn-success" value="Cancel"></input>
-					</div>
-				</ul>
+			<div class="btn-group col-xs-12 col-sm-4 pull-right">
+				<input type="button" id="addUser" value="New user" class="btn btn-primary" />
 			</div>
 		</div>
 		<!--to show a change in the table-->
@@ -72,10 +60,10 @@
 		<div class="panel">
 			<table id="tblUsers" class="table table-bordered table-hover table-condensed table-responsive">
 				<thead>
-					<tr class="info">
-						<th id="id-column">Username</th>
-						<th id="password-column">Password</th>
-						<th id="action-column">Actions</th>
+					<tr class="info text-center">
+						<th id="id-column" class="text-center">Username</th>
+						<th id="password-column" class="text-center">Password</th>
+						<th id="action-column" class="text-center">Actions</th>
 					</tr>
 				</thead>
 				<tbody>

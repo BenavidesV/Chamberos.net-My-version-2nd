@@ -29,17 +29,17 @@ $(function () {
 						}),
 						$('<td>', { //row with the option buttons
 							align: 'center',
-							width: 60
-						}).append(//agregamos a la fila el boton
+							width: 150
+						}).append(//to add the buttons
 							$('<input>', {
 								type: 'button',
 								class: 'clsDelete',
 								value: 'Delete',
-							}, '<input>', {
-									type: 'button',
-									class: 'clsEdit',
-									value: 'Edit',
-								}).data('dUser', user) //save the user that could be deleted
+							}), $('<input>', {
+								type: 'button',
+								class: 'clsEdit',
+								value: 'Edit',
+							}).data('dUser', user) //save the user that could be deleted
 							)
 						)
 					);
@@ -64,9 +64,14 @@ $(function () {
 		$('#username,#password,#retypePassword').val('');
 		$('#username').focus();
 	};
+	function Flieds() {
+		var strEdit = $(this).data('dUser');
+		$('#username').innerhtml = strEdit.username, $('#password').innerhtml = strEdit.password, $('#retypePassword').innerhtml = strEdit.password;
+		$.showListUsers();
+	}
 	
 	//submit event on form
-	$('#prueba').on('submit', function (eEvento) {
+	$('#save').on('click', function (eEvento) {
 		//void the recharging
 		eEvento.preventDefault();
 
@@ -83,12 +88,11 @@ $(function () {
 					//update the info
 					localStorage.setItem(strUser, strPass);
 					$.showListUsers();
-					$.CleanFileds();
+					$.CleanFields();
 				}
 			} else {
 				localStorage.setItem(strUser, strPass);
 				$.showListUsers();
-				//limpiamos el formulario
 				$.CleanFields();
 			}
 		} else {
@@ -111,6 +115,12 @@ $(function () {
 			//charge the list of the users
 			$.showListUsers();
 		}
+	});
+	//Edit clic event
+	$('.clsEdit').on('click', function () {
+		var strEdit = $(this).data('dUser');
+		$('#username').innerhtml = strEdit.username, $('#password').innerhtml = strEdit.password, $('#retypePassword').innerhtml = strEdit.password;
+		$.showListUsers();
 	});
 
 	$.showListUsers();
