@@ -51,18 +51,14 @@ var Users = {
     							}), $('<input>', {
     								type: 'button',
     								class: 'clsEdit',
-                                    onclick:'Users.Edit()',
-    								value: 'Edit',
-                                    id: 'addUser' //to display the modal window
+                                    href:'#modal2',
+    								value: 'Edit'
     							}).data('dUser', users.User) //save the user that could be deleted
     							)
     						)
     					);
                  }
           }
-        
-
-
     },
     AddUsers: function () {
         var tempUsers = Users.tbUsrs();
@@ -75,6 +71,7 @@ var Users = {
                 tempUsers.push(newUser);
                 localStorage.setItem("tbUsers", JSON.stringify(tempUsers));
                 alert("User Saved");
+                document.location=('users.html');
             }else{
                 alert('The password and the confirmation must be equals');
 				$tempPass.val('').focus();
@@ -87,7 +84,6 @@ var Users = {
 				alert('Please type the password');
 				$tempPass.val('').focus();
 			}}
-            closeModal();
             Users.AllUsers();
     },
     //This funtions creates the index to modify or delete the user
@@ -95,7 +91,7 @@ var Users = {
         var deletes = $(".Delete");
         for (var i = 0; i < deletes.length; i++)
         {
-            if (deletes[i] === etiqueta) {
+            if (deletes[i] == etiqueta) {
                 localStorage.setItem("Index", i);
 
             }
@@ -105,7 +101,7 @@ var Users = {
         var Edits = $(".Edit");
         for (var i = 0; i < Edits.length; i++)
         {
-            if (Edits[i] === etiqueta) {
+            if (Edits[i] == etiqueta) {
                 localStorage.setItem("Index", i);
 
             }
@@ -118,14 +114,26 @@ var Users = {
         users.splice(index, 1);
         localStorage.setItem("tbUsers", JSON.stringify(users));
         }
+        Users.Clean();
         Users.AllUsers();
     },
-    Edit:function() {
+    Edit:function() {/*
         var users = Users.tbUsrs();
         var index = parseInt(localStorage.getItem("Index"));
         users[index]=JSON.stringify({User: $("#username").val(), Password: $("#password").val()});
-        localStorage.setItem("tbUsers", JSON.stringify(users));
-    }
+        localStorage.setItem("tbUsers", JSON.stringify(users));*/
+    },
+    Charge: function () {
+        var users = Users.tbUsrs();
+        var index = parseInt(localStorage.getItem("Index"));
+        var user=JSON.parse(users[index]);
+        $("#Name").val(user.User);
+        $("#Password").val(user.Password);
+    },
+    Clean: function () {
+        $("#Name").val('');
+        $("#Password").val('');
+    },
 };
 /*
 $('.clsDelete').on('click', function () {
@@ -137,14 +145,8 @@ $('.clsDelete').on('click', function () {
 		//charge the list of the users
 		Users.AllUsers();
 		}
-	});
+	});*/
 //Edit clic event
-$('.clsEdit').bind('click', function () {
-		var strEdit = $(this).data('dUser');
-        
-		$('#username').innerhtml = strEdit.username, $('#password').innerhtml = strEdit.password, $('#retypePassword').innerhtml = strEdit.password;
-		//Users.AllUsers();
-	});
-*/
+//$('.clsEdit').on('click',modal());
 $(document).ready(function () {
     Users.AllUsers();})

@@ -6,9 +6,9 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="Users.js"></script>
-		<script type="text/javascript" src="newUsers.js"></script>
-		<script type="text/javascript" src="btns.js"></script>
+		<!--<script type="text/javascript" src="btns.js"></script>-->
 		<link rel="stylesheet" href="2.css">
+		<link rel="stylesheet" href="algo.css">
 	</head>
 	<!-- The common header for all pages -->
 	<header>
@@ -52,7 +52,23 @@
 				<span>USERS</span>
 			</div>
 			<div class="btn-group col-xs-12 col-sm-4 pull-right">
-				<input type="button" id="addUser" value="New user" class="btn btn-primary" />
+				<button id="addUser" value="New user" class="btn btn-primary"><a href="#modal1">New User</a></button>
+			</div>
+		</div>
+		<!--Para mostrar la ventana modal-->
+		<div id="modal1" class="modalmask">
+			<div class="modalbox movedown">
+				<a href="users.html" title="Close" class="close">X</a>
+				<h2>NEW USER</h2>
+				<div>
+					<form class="form" id="usernameInfo" method="post">Username
+						<input type="text" class="form-control" id="username" placeholder="Username">Password:
+						<input type="password" class="form-control" id="password" placeholder="Password">Confirm password
+						<input type="password" class="form-control" id="retypePassword" placeholder="Confirm your password"></input>
+					</form>
+					<button id="save" type="submit" class="btn btn-warning" onclick="Users.AddUsers()">Save</button>
+					<button id="cancel" class="btn btn-success"><a href="users.html">Cancel</a></button>
+				</div>
 			</div>
 		</div>
 		<!--to show a change in the table-->

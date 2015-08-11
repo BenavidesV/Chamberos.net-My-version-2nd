@@ -1,6 +1,14 @@
 body {
 	background-color: #ffefe6;
 }
+a{
+	text-decoration: none;
+	color: white;
+}
+a:hover {
+	text-decoration: none;
+	color: white;
+}
 div.error_msg {
 			display: none;
 			color: white;
