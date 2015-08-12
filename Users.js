@@ -42,16 +42,13 @@ var Users = {
     							align: 'center',
     							width: 150
     						}).append(//to add the buttons
-    							$('<input>', {
+    							$('<button><img src="delete.png"></button>', {
     								type: 'button',
-    								class: 'clsDelete',
-                                    onclick:'Users.Delete()',
+    								class: 'clsDelete btn primary',
     								value: 'Delete',
-                                    id:'Delete'
-    							}), $('<input>', {
+    							}), $('<a href="#modal2"><img src="edit.png"></a>', {
     								type: 'button',
-    								class: 'clsEdit',
-                                    href:'#modal2',
+    								class: 'clsEdit btn primary',
     								value: 'Edit'
     							}).data('dUser', users.User) //save the user that could be deleted
     							)
@@ -86,67 +83,21 @@ var Users = {
 			}}
             Users.AllUsers();
     },
-    //This funtions creates the index to modify or delete the user
-    DeleteUsers: function (etiqueta) {
-        var deletes = $(".Delete");
-        for (var i = 0; i < deletes.length; i++)
-        {
-            if (deletes[i] == etiqueta) {
-                localStorage.setItem("Index", i);
-
-            }
-        }
-    },
-    EditUsers: function (etiqueta) {
-        var Edits = $(".Edit");
-        for (var i = 0; i < Edits.length; i++)
-        {
-            if (Edits[i] == etiqueta) {
-                localStorage.setItem("Index", i);
-
-            }
-        }
-    },
-    Delete: function () {
-        if (confirm('Are you sure you want delete this user?')){
+    Charge: function (strEdit) {
         var users = Users.tbUsrs();
-        var index = parseInt(localStorage.getItem("Index"));
-        users.splice(index, 1);
-        localStorage.setItem("tbUsers", JSON.stringify(users));
-        }
-        Users.Clean();
-        Users.AllUsers();
-    },
-    Edit:function() {/*
-        var users = Users.tbUsrs();
-        var index = parseInt(localStorage.getItem("Index"));
-        users[index]=JSON.stringify({User: $("#username").val(), Password: $("#password").val()});
-        localStorage.setItem("tbUsers", JSON.stringify(users));*/
-    },
-    Charge: function () {
-        var users = Users.tbUsrs();
-        var index = parseInt(localStorage.getItem("Index"));
-        var user=JSON.parse(users[index]);
-        $("#Name").val(user.User);
-        $("#Password").val(user.Password);
+        for (var index = 0; index < users.length; index++) {
+		if (strEdit==users[index].user) {
+            $("#Name").val(users[index].user);
+            $("#Password").val(users[index].password);
+		}		
+	}
+        
     },
     Clean: function () {
         $("#Name").val('');
         $("#Password").val('');
     },
 };
-/*
-$('.clsDelete').on('click', function () {
-	var strDelete = $(this).data('dUser');
-	if (confirm('Are you sure you want delete'+strDelete+' ?')) {
-		var users = Users.tbUsrs();
-        users.splice(strDelete, 1);
-        localStorage.setItem("tbUsers", JSON.stringify(users));
-		//charge the list of the users
-		Users.AllUsers();
-		}
-	});*/
-//Edit clic event
-//$('.clsEdit').on('click',modal());
+
 $(document).ready(function () {
     Users.AllUsers();})

@@ -18,7 +18,8 @@
     pointer-events: auto;
 }
 .modalbox{
-    width: 400px;
+    width:18em;
+    height:20em;
     position: relative;
     padding: 5px 20px 13px 20px;
     background: #fff;
@@ -51,8 +52,8 @@
 }
  
 .modalmask:target .resize{
-    width:400px;
-    height:200px;
+    width:18em;
+    height:20em;
 }
 .close {
     background: #606061;
