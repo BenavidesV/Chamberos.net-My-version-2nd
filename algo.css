@@ -45,6 +45,8 @@
 }
 .modalmask:target .movedown{       
     margin:10% auto;
+    width:18em;
+    height:24em;
 }
 .modalmask:target .rotate{     
     transform: rotate(360deg) scale(1,1);

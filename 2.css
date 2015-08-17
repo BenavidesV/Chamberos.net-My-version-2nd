@@ -9,6 +9,15 @@ a:hover {
 	text-decoration: none;
 	color: white;
 }
+span{
+	color: rebeccapurple;
+}
+.door{
+	diplay: inline-block;
+	float: right;
+	border: none;
+}
+
 div.error_msg {
 			display: none;
 			color: white;
@@ -48,6 +57,11 @@ div ul li {
 	text-align: center;
 	text-decoration: none;	
 }
+
+#notBorder{
+	border: none;
+}
+
 .login{
 	border: 2px solid orangered;
 	background-color: lightsalmon;

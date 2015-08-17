@@ -1,6 +1,6 @@
 var Users = {
     tbUsrs: function () {
-        tbUsers = localStorage.getItem("tbUsers");
+        var tbUsers = localStorage.getItem("tbUsers");
         tbUsers = JSON.parse(tbUsers);
         if (tbUsers == null) {
             tbUsers = [];
@@ -25,9 +25,11 @@ var Users = {
 				);
             
         }else{
+            
             for (var i in listUsers) {
                 var users = JSON.parse(listUsers[i]);
                 //create a new row
+                
     				$objUsersTable.append(
     					$('<tr>').append(
     						$('<td>', {
@@ -42,33 +44,104 @@ var Users = {
     							align: 'center',
     							width: 150
     						}).append(//to add the buttons
-    							$('<button><img src="delete.png"></button>', {
+    							$('<button>', {
     								type: 'button',
-    								class: 'clsDelete btn primary',
+    								class: 'clsDelete',
     								value: 'Delete',
-    							}), $('<a href="#modal2"><img src="edit.png"></a>', {
+                                    onclick: 'Users.Delete(this)',
+                                    name:users.User,
+                                    dUser: i
+    							}).append($('<img src="delete.png">')),
+                         
+                                $('<button>', {
     								type: 'button',
-    								class: 'clsEdit btn primary',
-    								value: 'Edit'
-    							}).data('dUser', users.User) //save the user that could be deleted
+    								class: 'clsEdit',
+    								value: 'Edit',
+                                    onclick: 'Users.Charge(this)',
+                                    name:users.User,
+                                    dUser: i,
+    							}).append($('<img src="edit.png">')) //The image to identify
     							)
     						)
     					);
                  }
           }
     },
-    AddUsers: function () {
+    //When creates a new user
+    User: function () {
+        var $tempUser = $('#username'), $tempPass = $('#password');
         var tempUsers = Users.tbUsrs();
-        
-        var $tempUser = $('#username'), $tempPass = $('#password'), $tempConfirmation=$('#retypePassword');
+        this.User=$tempUser.val();
+        this.Password= $tempPass.val();      
+    	var newUser =JSON.stringify(this);
+        tempUsers.push(newUser);
+        localStorage.setItem("tbUsers", JSON.stringify(tempUsers));
+        alert('User Saved');
+        document.location=('users.html');
+       
+    },
+    //To save changes
+    Save: function(position){
+        //position=$('#saveChanges').val();
+        var users = Users.tbUsrs();
+        for (var index = 0; index < users.length; index++) {
+            if (position == index) {
+                var eUser = ({User: $("#editUsername").val(), Password: $("#editPassword").val()});
+                eUser =JSON.stringify(eUser);
+                users.splice(index, 1,eUser); 
+            }
+        }
+        localStorage.setItem("tbUsers", JSON.stringify(users));
+        alert('User Modified');
+        document.location=('users.html');
+    },
+    Charge: function (btn) {
+        window.location.replace("#modal2");
+        var strEdit = btn.getAttribute('duser');
+        $('#saveChanges').val(strEdit);
+        var users = Users.tbUsrs();
+        for (var index = 0; index < users.length; index++) {
+            if (strEdit == index) {
+                $("#editUsername").val(btn.getAttribute('name'));
+                $("#editPassword").val(users[index].Password);
+                $("#editRetypePassword").val(users[index].Password);
+            }
+        }
+    },
 
+    Delete: function(btn){
+        var strDelete = btn.getAttribute('duser');
+ 
+	    if (confirm('Are you sure you want delete '+ btn.getAttribute('name')+' ?' )) {
+		var users = Users.tbUsrs();
+        for (var index = 0; index < users.length; index++) {
+            console.log(strDelete);
+            console.log(users[index].User+"-"+users[index]["User"]);
+            if (index==strDelete) {
+                users.splice(index, 1);                
+            }   
+        }
+		localStorage.setItem("tbUsers", JSON.stringify(users));
+		//charge the list of the users
+		Users.AllUsers();
+    }},
+    Verification: function(edit){
+        var position= $('#saveChanges').val();
+        var $tempUser='';
+        var $tempPass='';
+        var $tempConfirmation='';
+        if (!edit) {
+           $tempUser = $('#username'), $tempPass = $('#password'), $tempConfirmation=$('#retypePassword');
+        }else{
+           $tempUser = $('#editUsername'), $tempPass = $('#editPassword'), $tempConfirmation=$('#editRetypePassword');
+        }
 		if ($.trim($tempUser.val()) != '' && $.trim($tempPass.val())!= '') {
-            if ($tempPass.val()==$tempConfirmation.val()) {            
-    			var newUser = JSON.stringify({User: $("#username").val(), Password: $("#password").val()});
-                tempUsers.push(newUser);
-                localStorage.setItem("tbUsers", JSON.stringify(tempUsers));
-                alert("User Saved");
-                document.location=('users.html');
+            if ($tempPass.val()==$tempConfirmation.val()) {
+                if (edit) {
+                    Users.Save(position);
+                }else{
+                    Users.User();
+                }
             }else{
                 alert('The password and the confirmation must be equals');
 				$tempPass.val('').focus();
@@ -83,21 +156,8 @@ var Users = {
 			}}
             Users.AllUsers();
     },
-    Charge: function (strEdit) {
-        var users = Users.tbUsrs();
-        for (var index = 0; index < users.length; index++) {
-		if (strEdit==users[index].user) {
-            $("#Name").val(users[index].user);
-            $("#Password").val(users[index].password);
-		}		
-	}
-        
-    },
-    Clean: function () {
-        $("#Name").val('');
-        $("#Password").val('');
-    },
 };
-
 $(document).ready(function () {
-    Users.AllUsers();})
+    Users.AllUsers();
+    Dashboard.UserId();
+});
