@@ -27,7 +27,7 @@ var Users = {
         }else{
             
             for (var i in listUsers) {
-                var users = JSON.parse(listUsers[i]);
+                var users = listUsers[i];
                 //create a new row
                 
     				$objUsersTable.append(
@@ -73,8 +73,7 @@ var Users = {
         var tempUsers = Users.tbUsrs();
         this.User=$tempUser.val();
         this.Password= $tempPass.val();      
-    	var newUser =JSON.stringify(this);
-        tempUsers.push(newUser);
+        tempUsers.push(this);
         localStorage.setItem("tbUsers", JSON.stringify(tempUsers));
         alert('User Saved');
         document.location=('users.html');
@@ -86,8 +85,7 @@ var Users = {
         var users = Users.tbUsrs();
         for (var index = 0; index < users.length; index++) {
             if (position == index) {
-                var eUser = ({User: $("#editUsername").val(), Password: $("#editPassword").val()});
-                eUser =JSON.stringify(eUser);
+                var eUser = {User: $("#editUsername").val(), Password: $("#editPassword").val()};
                 users.splice(index, 1,eUser); 
             }
         }
@@ -158,6 +156,6 @@ var Users = {
     },
 };
 $(document).ready(function () {
+    Dashboard.Logged();
     Users.AllUsers();
-    Dashboard.UserId();
 });

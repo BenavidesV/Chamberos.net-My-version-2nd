@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<title>Chamberos.net-Clients</title>
+	<title>Chamberos.net-Invoices</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<link rel="stylesheet" href="2.css">
@@ -24,15 +24,15 @@
 		<div id="navbarCollapse" class="collapse navbar-collapse col-xs-12 col-sm-4">
 			<ul class="nav navbar-nav">
 				<li id="userAdmin">
-					<a title="users" href="users.html">Users</a>
+					<a title="users" href="users.html" >Users</a>
 				</li>
-				<li class="active">
+				<li>
 					<a href="clients.html">Clients</a>
 				</li>
 				<li>
 					<a title="chambas" href="chambas.html">Chambas</a>
 				</li>
-				<li>
+				<li class="active">
 					<a title="invoices" href="invoices.html">Invoices</a>
 				</li>
 			</ul>
@@ -49,51 +49,66 @@
 <body>
 	<div class="container">
 		<div class="pull-left">
-			<img src="users2.png">
-			<span>CLIENTS</span>
+			<img src="icon-clipboard-256.png" id="invoicesImg">
+			<span>INVOICES</span>
 		</div>
 		<div class="col-xs-12 col-sm-4 pull-right">
-			<a class="btn btn-info" href="#modal1"><span>NEW CLIENT</span></a>
+			<a class="btn btn-info" href="#modal1"><span>NEW INVOICE</span></a>
 		</div>
 	</div>
 	<div id="modal1" class="modalmask">
 		<div class="modalbox movedown">
-			<a href="clients.html" title="Close" class="close">X</a>
-			<h2>NEW CLIENT</h2>
+			<a href="invoices.html" title="Close" class="close">X</a>
+			<h2>NEW INVOICE</h2>
 			<div>
-				<form class="form" id="ClientInfo" method="post">Id
-					<input type="number" class="form-control" id="id" placeholder="Personal Id">Fullname:
-					<input type="text" class="form-control" id="fullname" placeholder="Write the fullname">Phone:
-					<input type="tel" class="form-control" id="phone" placeholder="Phone number"></input>
+				<form class="form">
+					<h5>Client</h5>
+					<input list="clients" placeholder="Select with a double click" id="client">
+					<datalist id="clients">
+					</datalist>
+					<h5>Job Description</h5>
+					<input type="textarea" placeholder="Job details" id="description">
+					<h5>Date</h5>
+					<input type="date" data-datepicker="{format:'DD.MM.YYYY'}" id="date">
+					<h5>Mount</h5>
+					<input type="number" min="0" placeholder="Amount" id="mount">
 				</form>
-				<button id="save" type="submit" class="btn btn-warning" onclick="Clients.Verification(false)">Save</button>
-				<a id="cancel" class="btn btn-success" href="clients.html">Cancel</a>
+				<button id="save" type="submit" class="btn btn-warning" onclick="Invoices.Verification(false)">Save</button>
+				<a id="cancel" class="btn btn-success" href="invoices.html">Cancel</a>
 			</div>
 		</div>
 	</div>
 	<div id="modal2" class="modalmask">
 		<div class="modalbox resize">
-			<a href="users.html" title="Close" class="close">X</a>
-			<h2>EDIT CLIENT</h2>
+			<a href="invoices.html" title="Close" class="close">X</a>
+			<h2>EDIT INVOICE</h2>
 			<div>
-				<form class="form" id="ClientInfo" method="post">Id
-					<input type="number" class="form-control" id="editId" placeholder="Personal Id">Fullname:
-					<input type="text" class="form-control" id="editFullname" placeholder="Write the fullname">Phone:
-					<input type="tel" class="form-control" id="editPhone" placeholder="Phone number"></input>
+				<form class="form">
+					<h5>Client</h5>
+					<input list="clients" placeholder="Select with a double click" id="editClient">
+					<datalist id="clients">
+					</datalist>
+					<h5>Job Description</h5>
+					<input type="textarea" placeholder="Job details" id="editDescription">
+					<h5>Date</h5>
+					<input type="date" data-datepicker="{format:'DD.MM.YYYY'}" id="editDate">
+					<h5>Mount</h5>
+					<input type="number" min="0" placeholder="Amount" id="editMount">
 				</form>
-				<button id="saveChanges" type="submit" class="btn btn-warning" onclick="Clients.Verification(true)">Save</button>
-				<a id="cancel" class="btn btn-success" href="clients.html">Cancel</a>
+				<button id="save" type="submit" class="btn btn-warning" onclick="Invoices.Verification(true)">Save</button>
+				<a id="cancel" class="btn btn-success" href="invoices.html">Cancel</a>
 			</div>
 		</div>
 	</div>
 
 	<div class="panel">
-		<table id="tbClients" class="table table-bordered table-hover table-condensed table-responsive">
+		<table id="tbInvoices" class="table table-bordered table-hover table-condensed table-responsive">
 			<thead>
 				<tr class="info">
-					<th id="id-column">ID</th>
-					<th id="fullname-column">Fullname</th>
-					<th id="id-column">Phone</th>
+					<th id="client-column">Client</th>
+					<th id="description-column">Description</th>
+					<th id="date-column">Date</th>
+					<th id="mount-column">Mount</th>
 					<th id="action-column">Actions</th>
 				</tr>
 			</thead>
@@ -104,7 +119,7 @@
 	</div>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="functions2.js" type="text/javascript"></script>
-	<script type="text/javascript" src="Clients.js"></script>
+	<script type="text/javascript" src="Invoices.js"></script>
 	<script type="text/javascript" src="dashboard.js"></script>
 </body>
 

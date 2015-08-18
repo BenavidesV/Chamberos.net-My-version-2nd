@@ -46,7 +46,7 @@
 .modalmask:target .movedown{       
     margin:10% auto;
     width:18em;
-    height:24em;
+    height:25em;
 }
 .modalmask:target .rotate{     
     transform: rotate(360deg) scale(1,1);
@@ -55,7 +55,7 @@
  
 .modalmask:target .resize{
     width:18em;
-    height:20em;
+    height:25em;
 }
 .close {
     background: #606061;
@@ -75,4 +75,10 @@
 .close:hover {
     background: #FAAC58;
     color:#222;
+}
+#invoicesImg{
+    width: 40%;
+}
+#chambasImg{
+    width: 40%;
 }

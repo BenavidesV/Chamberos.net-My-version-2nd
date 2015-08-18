@@ -14,15 +14,16 @@ function validateUser() {
 		errorElement.setAttribute("style", "display:block;");
 	}
 }
-/*To show the information when a change is applied*/
+/*If the user is not administrador*/
 function otherUser() {
 	var listUsers = localStorage.getItem("tbUsers");
 	listUsers = JSON.parse(listUsers);
 	var user = document.getElementById('username').value;
 	var pass = document.getElementById('password').value;
 
-	for (var index = 0; index < listUsers.length; index++) {
-		if (listUsers[index].user == user && listUsers[index].password == pass) {
+	for (var u in listUsers) {
+		var usr=listUsers[u];
+		if (usr.User == user && usr.Password == pass) {
 			return true;
 		}
 	}
